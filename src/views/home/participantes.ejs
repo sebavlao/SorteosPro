@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/output.css">
+    <title>Últimos Participantes</title>
+</head>
+<body class="grid font-primary">
+    <%- include("./partials/background.ejs") %>
+    <%- include("./partials/headerHome.ejs") %>
+    <main class="pt-24 text-white">
+        <h1 class="text-center font-bold text-3xl">Participantes</h1>
+        <section class="grid justify-center py-10 text-center">
+            <% if (personas) { %>
+                <table class="border-collapse table-auto min-w-80 md:text-2xl text-lg">
+                    <thead>
+                        <tr>
+                            <th class="md:p-4 border-2">Nombre:</th>
+                            <th class="md:p-4 border-2">Fecha de registro:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% personas.forEach(persona => { %>
+                            <tr>
+                                <td class="md:p-4 border-2"><%= persona.nombre %></td>
+                                <td class="md:p-4 border-2"><%= persona.fecha_alta %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                <% } %>
+                </table>
+        </section>
+        <%- include("./partials/sectionDate.ejs") %>
+    </main>
+    <%- include("./partials/footerHome.ejs") %>
+    <script src="/js/header.js"></script>
+</body>
+</html>

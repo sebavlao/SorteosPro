@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/output.css">
+    <title>Admin - Registros</title>
+</head>
+<body class="bg-slate-200 h-screen">
+    <%- include("./partials/background.ejs")%>
+    <%- include("./partials/headerAdmin.ejs") %>
+    <main class="font-primary px-16 py-12 pt-24">
+        <h1 class="text-center font-bold text-3xl">Sorteo</h1>
+        <section class="flex items-center gap-10">
+            <form action="/adminsecret/registros/get" method="GET">
+                <button class="hover:bg-slate-950 border-slate-950 text-slate-950 hover:text-white font-bold border-2 border-solid px-5 py-2 rounded-full transition duration-300 ease-in-out">Obtener registros</button>
+            </form>
+            <% if (registros) { %>
+                <form action="/adminsecret/registros/dwd" method="GET">
+                    <button class="hover:bg-purple-900 border-purple-900 text-purple-900 hover:text-white  font-bold border-2 border-solid px-5 py-2 rounded-full transition duration-300 ease-in-out">Descargar registros</button>
+                </form>
+                <span class="font-bold text-xl">Cantidad: <%= registros.length %></span>
+            <% } %>
+        </section>
+        <hr class="border-2 border-gray-300 rounded-full my-4">
+        <% if (registros && registros.length) { %>
+            <section class="flex items-center flex-col max-h-[440px] overflow-auto">
+                <table class="border-collapse border-spacing-2 table-auto w-full">
+                    <thead>
+                        <tr class="bg-slate-300">
+                            <th class="border border-slate-600">Id</th>
+                            <th class="border border-slate-600">Dni</th>
+                            <th class="border border-slate-600">Apellido</th>
+                            <th class="border border-slate-600">Nombre</th>
+                            <th class="border border-slate-600">Email</th>
+                            <th class="border border-slate-600">Nacimiento</th>
+                            <th class="border border-slate-600">Telefono</th>
+                            <th class="border border-slate-600">Domicilio</th>
+                            <th class="border border-slate-600">Municipio</th>
+                            <th class="border border-slate-600">Departamento</th>
+                            <th class="border border-slate-600">Fecha de alta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% registros.forEach(registro => { %>
+                            <tr class="bg-gray-50 font-medium">
+                                <td class="border border-slate-700 px-2"><%= registro.id %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.dni %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.apellido %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.nombre %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.email %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.nacimiento %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.telefono %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.domicilio %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.nombre_municipio %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.nombre_departamento %></td>
+                                <td class="border border-slate-700 px-2"><%= registro.fecha_alta %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </section>
+        <% } %>
+    </main>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/output.css">
+    <!-- <script nonce="<%# nonce %>" src="https://www.google.com/recaptcha/api.js" defer></script> -->
+    <title>Admin</title>
+</head>
+<body class="bg-slate-200">
+    <%- include("./partials/background.ejs")%>
+    <main class="font-primary w-full flex justify-center items-center h-screen">
+        <section class="flex bg-[#fbfbfb] px-10 py-8 flex-col shadow-2xl justify-center items-center rounded-xl gap-8">
+            <h1 class="text-center font-bold text-3xl">Loguearse</h1>
+            <form method="post" class="grid grid-cols-1 gap-8" id="demo-form">
+                <div class="flex flex-col">
+                    <label for="usuario">Usuario </label>
+                    <input class="border-solid border hover:border-[#659EFF] outline-[#659EFF] rounded-md px-2 py-0.5" type="text" id="usuario" name="usuario">
+                </div>
+                <div class="flex flex-col">
+                    <label for="password">Contraseña </label>
+                    <input class="border-solid border hover:border-[#659EFF] outline-[#659EFF] rounded-md px-2 py-0.5" type="password" id="password" name="password">
+                </div>
+                <div class="justify-self-center">
+                    <!-- Si vas a utilizar google captcha, agregar la clase "g-recaptcha", y los siguientes atributos con sus values correspondiente: data-sitekey="{PUBLIC_KEY}" data-callback='onSubmit,' data-action='submit', al siguiente boton: -->
+                    <button class="hover:bg-slate-950 border-slate-950 text-slate-950 hover:text-white font-bold border-2 border-solid px-16 py-2 rounded-full transition duration-300 ease-in-out" >Login</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <!--
+     <script nonce="<%# nonce %>">
+        function onSubmit(token) {
+          document.getElementById("demo-form").submit()
+        }
+      </script>
+    -->
+</body>
+</html>

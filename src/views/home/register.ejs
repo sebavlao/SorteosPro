@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Pagina de sorteo - proyecto de @sebavlao"
+    />
+    <link rel="stylesheet" href="/css/output.css" />
+    <!--
+    <script
+      nonce="<%# nonce %>"
+      src="https://www.google.com/recaptcha/api.js?render={PUBLIC_KEY}"
+      defer
+    ></script>
+    -->
+    <script
+      nonce="<%= nonce %>"
+      src="https://cdn.jsdelivr.net/npm/sweetalert2@11"
+    ></script>
+    <title>Sorteo - @sebavlao</title>
+  </head>
+  <%- include("./partials/background.ejs") %>
+  <body class="font-primary w-full bg-slate-950">
+    <%- include("./partials/headerHome.ejs") %>
+    <main
+      class="flex flex-col justify-center lg:items-center pt-24 lg:min-h-screen gap-4 p-4 z-20"
+    >
+      <h1 class="text-center font-bold text-3xl text-white">Sorteo</h1>
+      <section
+        class="overflow-hidden shadow-2xl bg-[#fbfbfb] p-8 bg-opacity-90 flex lg:w-[50%] rounded-xl w-full max-lg:px-4 max-lg:py-8"
+      >
+        <form
+          id="form"
+          action="/"
+          method="post"
+          class="grid grid-cols-1 gap-4 w-full lg:grid-cols-2 max-xl:px-6 max-lg:overflow-scroll"
+        >
+          <div class="flex-col flex whitespace-nowrap break-words">
+            <label for="nombre"
+              >Nombre <span class="text-[#1e14d2]">(*)</span></label
+            >
+            <input
+              class="border-solid border hover:border-[#659EFF] outline-[#659EFF] rounded-md px-2 py-0.5"
+              id="nombre"
+              type="text"
+              name="nombre"
+              aria-required="true"
+            />
+            <span
+              id="span_nombre"
+              class="pt-1 text-sm font-semibold text-[#E30231] break-words whitespace-normal leading-none h-8"
+            ></span>
+          </div>
+          <div class="flex-col flex">
+            <label for="apellido"
+              >Apellido <span class="text-[#1e14d2]">(*)</span></label
+            >
+            <input
+              class="border-solid border hover:border-[#659EFF] outline-[#659EFF] rounded-md px-2 py-0.5"
+              id="apellido"
+              type="text"
+              name="apellido"
+              aria-required="true"
+            />
+            <span
+              id="span_apellido"
+              class="pt-1 text-sm font-semibold text-[#E30231] break-words whitespace-normal leading-none h-8"
+            ></span>
+          </div>
+          <div class="flex-col flex">
+            <label for="dni">DNI <span class="text-[#1e14d2]">(*)</span></label>
+            <input
+              class="numericc border-solid border hover:border-[#659EFF] outline-[#659EFF] rounded-md px-2 py-0.5"
+              id="dni"
+              type="number"
+              name="dni"
+              aria-required="true"
+              pattern="/^[0-9]+$/"
+            />
+            <span
+              id="span_dni"
+              class="pt-1 text-sm font-semibold text-[#E30231] break-words whitespace-normal leading-none h-8"
+            ></span>
+          </div>
+          <div class="flex-col flex">
+            <label for="nacimiento"
+              >Fecha de nacimiento
+              <span class="text-[#1e14d2]">(*)</span></label
+            >
+            <input
+              class="border-solid border hover:border-[#659EFF] outline-[#659EFF] rounded-md px-2 py-0.5"
+              id="nacimiento"
+              type="date"
+              name="nacimiento"
+              aria-required="true"
+            />
+            <span
+              id="span_nacimiento"
+              class="pt-1 text-sm font-semibold text-[#E30231] break-words whitespace-normal leading-none h-8"
+            ></span>
+          </div>
+          <div class="flex-col flex">
+            <label for="telefono"
+              >Teléfono / whats app
+              <span class="text-[#1e14d2]">(*)</span></label
+            >
+            <input
+              class="numericc border-solid border hover:border-[#659EFF] outline-[#659EFF] rounded-md px-2 py-0.5"
+              id="telefono"
+              type="number"
+              name="telefono"
+              aria-required="true"
+            />
+            <span
+              id="span_telefono"
+              class="pt-1 text-sm font-semibold text-[#E30231] break-words whitespace-normal leading-none h-8"
+            ></span>
+          </div>
+          <div class="flex-col flex">
+            <label for="email"
+              >Email <span class="text-[#1e14d2]">(*)</span></label
+            >
+            <input
+              class="border-solid border hover:border-[#659EFF] outline-[#659EFF] rounded-md px-2 py-0.5"
+              id="email"
+              type="email"
+              name="email"
+              autocomplete="email"
+              aria-required="true"
+            />
+            <span
+              id="span_email"
+              class="pt-1 text-sm font-semibold text-[#E30231] break-words whitespace-normal leading-none h-8"
+            ></span>
+          </div>
+          <div class="flex-col flex">
+            <label for="domicilio"
+              >Domicilio <span class="text-[#1e14d2]">(*)</span></label
+            >
+            <input
+              class="border-solid border hover:border-[#659EFF] outline-[#659EFF] rounded-md px-2 py-0.5"
+              id="domicilio"
+              type="text"
+              name="domicilio"
+              aria-required="true"
+            />
+            <span
+              id="span_domicilio"
+              class="pt-1 text-sm font-semibold text-[#E30231] break-words whitespace-normal leading-none h-8"
+            ></span>
+          </div>
+          <div class="flex-col flex custom-select">
+            <label for="municipio"
+              >Municipio <span class="text-[#1e14d2]">(*)</span></label
+            >
+            <select
+              id="municipio"
+              class="border-solid border hover:border-[#659EFF] rounded-md px-2 py-1 overflow-hidden"
+              name="municipio"
+              aria-required="true"
+            >
+              <option selected disabled label="seleccionar municipio"></option>
+              <% municipios.forEach(municipio => { %>
+              <option value="<%= municipio.nombre %>">
+                <%= municipio.nombre %>
+              </option>
+              <% }) %>
+            </select>
+            <span
+              id="span_municipio"
+              class="pt-1 text-sm font-semibold text-[#E30231] break-words whitespace-normal leading-none h-8"
+            ></span>
+          </div>
+          <div class="2xl:flex items-start gap-2 2xl:col-span-2">
+            <input
+              type="checkbox"
+              class="mt-2 cursor-pointer"
+              id="check"
+              name="tyc"
+              value="accept"
+              aria-required="true"
+            />
+            <label for="check"
+              >Acepto
+              <a href="/tyc" class="text-[#1e14d2]"
+                >Términos y Condiciones (*)</a
+              ></label
+            >
+          </div>
+          <div class="lg:col-span-2 justify-self-center max-md:self-center">
+            <!-- Si vas a utilizar google captcha, agregar la clase "g-recaptcha" al siguiente boton: -->
+            <button
+              class="hover:bg-slate-950 border-slate-950 text-slate-950 hover:text-white font-bold border-2 border-solid px-16 py-2 rounded-full transition duration-300 ease-in-out"
+              id="btn"
+            >
+              Enviar
+            </button>
+          </div>
+          <!-- <input id="recaptcha" name="g-recaptcha-response" type="hidden" /> -->
+        </form>
+      </section>
+      <%- include("./partials/sectionDate.ejs") %>
+    </main>
+    <%- include("./partials/footerHome.ejs") %>
+    <style>
+      @keyframes myAnim {
+        0% {
+          opacity: 0;
+          transform: scale(0.6);
+        }
+
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+    <script src="js/index.js" type="module" defer></script>
+    <% if (responseAlert) { %>
+    <script nonce="<%= nonce %>">
+      const alert = <%- JSON.stringify(responseAlert) %>
+      Swal.fire({
+          icon: alert.status != 202 ? "error" : "info",
+          titleText: alert.status != 202 ? "Rechazado" : "Validar correo",
+          text: alert.message,
+      })
+    </script>
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/css/output.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones</title>
+</head>
+<body class="font-primary relative">
+    <%- include("./partials/background.ejs") %>
+    <%- include("./partials/headerHome.ejs") %>
+    <main class="pt-24 text-white">
+        <h1 class="text-center font-bold text-3xl text-white">Términos y Condiciones</h1>
+        <section class="px-5 md:px-20 xl:px-60 py-10 grid gap-6">
+            <article>
+                <h2 class="font-semibold text-xl">Propósito del Proyecto</h2>
+                <p>El presente proyecto fue desarrollado originalmente para un cliente específico con el objetivo de gestionar registros y sorteos de manera automatizada. Sin embargo, debido a circunstancias ajenas al control del desarrollador, el proyecto no llegó a concretarse para su uso por dicho cliente. En consecuencia, el código se ha adaptado y utilizado como un proyecto personal para el portafolio profesional del desarrollador, sin ningún fin comercial en su implementación actual.</p>
+            </article>
+            <article>
+                <h2 class="font-semibold text-xl">Almacenamiento de Datos</h2>
+                <p>Los datos personales de los usuarios registrados en esta plataforma se almacenan de forma segura en una base de datos, en conformidad con las prácticas de protección de datos aplicables. Estos datos incluyen la información proporcionada por los usuarios durante el proceso de registro.</p>
+            </article>
+            <article>
+                <h2 class="font-semibold text-xl">Acceso y Exportación de Datos</h2>
+                <p>El administrador de la plataforma tiene la facultad de acceder a los datos registrados por los usuarios y puede exportar esta información en formatos PDF o CSV. Estos datos exportados pueden incluir, entre otros, los nombres, correos electrónicos, dni, y otros datos proporcionados por el usuario en el formulario, y son generados con el fin de proporcionar registros de participación y análisis del sistema.</p>
+            </article>
+            <article>
+                <h2 class="font-semibold text-xl">Función de Sorteo</h2>
+                <p>El sistema incluye una función de sorteo diseñada para seleccionar a un usuario registrado de forma aleatoria como "ganador" de un sorteo. Esta funcionalidad fue concebida como parte de los requerimientos originales del cliente, con la intención de automatizar la selección de ganadores. En el contexto actual, esta función se conserva únicamente con fines demostrativos como parte del portafolio del desarrollador y no otorga ningún premio real ni implica el derecho a recibir ninguna compensación o beneficio.</p>
+            </article>
+            <article>
+                <h2 class="font-semibold text-xl">Uso de Datos Personales</h2>
+                <p>Los datos recopilados están protegidos bajo políticas de privacidad adecuadas, y el acceso a ellos se limita al administrador autorizado. La información solo se utiliza para fines demostrativos del sistema y no se compartirá con terceros.</p>
+            </article>
+        </section>
+        <%- include("./partials/sectionDate.ejs") %>
+    </main>
+    <%- include("./partials/footerHome.ejs") %>
+    <script src="/js/header.js"></script>
+</body>
+</html>

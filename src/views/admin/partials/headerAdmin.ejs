@@ -1,0 +1,16 @@
+<header class="w-full flex justify-center max-lg:sticky fixed top-0 z-10">
+    <nav class="text-black lg:px-8 lg:py-8 py-4 px-4 relative">
+        <ul class="flex justify-between items-center">
+            <li id="options" class="gap-8 justify-center flex flex-1 items-center font-medium h-10">
+                <% 
+                    let url = (currentPath === "/registros" || currentPath === "/registros/get") ? "/adminsecret/panel" : "/adminsecret/registros";
+                    let linkText = (currentPath === "/registros" || currentPath === "/registros/get" ) ? "Sorteo" : "Registros";
+                %>
+                <a href=<%= url %> class="text-base"><%= linkText %></a>
+                <form method="POST" action="/adminsecret/logout">
+                    <button id="btn_pdf" class="hover:bg-[#E30231] border-[#E30231] text-[#E30231] hover:text-[#ffffff] font-bold border-2 border-solid px-8 py-2 rounded-full transition duration-300 ease-in-out">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</header>
