@@ -66,6 +66,7 @@ const authDB = async () => {
     await sequelize.authenticate();
     console.log("Conexión exitosa a la db");
     app.listen(config.PORT);
+    console.log("escuchando en: ", config.API_PROJECT);
   } catch (err) {
     console.error(`Unable to connect: ${err}`);
   }

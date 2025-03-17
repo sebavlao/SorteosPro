@@ -164,8 +164,8 @@
             >
               <option selected disabled label="seleccionar municipio"></option>
               <% municipios.forEach(municipio => { %>
-              <option value="<%= municipio.nombre %>">
-                <%= municipio.nombre %>
+              <option value="<%= municipio.dataValues.nombre %>">
+                <%= municipio.dataValues.nombre %>
               </option>
               <% }) %>
             </select>

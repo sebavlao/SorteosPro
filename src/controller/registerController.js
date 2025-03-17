@@ -3,19 +3,26 @@ const modelos = require("../models/modelos");
 const enviarEmail = require("../libs/nodemailer");
 const errors = require("../utils/errors");
 const sequelize = require("../models/conection");
+const { checkearEntradas } = require("../utils/comprobations");
 
 const { Municipio, Persona, Token_verificacion } = modelos();
 
-let municipios;
+let municipios = null;
 
-const cargarMunicipios = async () => {
-  municipios = await Municipio.findAll({
+async function cargarMunicipios() {
+  const res = await Municipio.findAll({
     attributes: ["nombre"],
     order: [["nombre", "ASC"]],
   });
-};
+
+  municipios = res;
+}
 
 cargarMunicipios();
+
+cargarMunicipios().then((res) => {
+  const municipios = res;
+});
 
 const index = async (req, res) => {
   try {
@@ -35,7 +42,9 @@ const tyc = (req, res) => {
 };
 
 const register = async (req, res) => {
-  const valores = req.body;
+  let personaCreada;
+  const { verificado, ...data } = req.body;
+
   let responseAlert = {
     status: codes.StatusCodes.ACCEPTED,
     message:
@@ -43,44 +52,19 @@ const register = async (req, res) => {
     reason: codes.getReasonPhrase(codes.StatusCodes.ACCEPTED),
   };
 
-  const comprobaciones = async (dni, email, municipio) => {
-    const municipioEncontrado = await Municipio.findOne({
-      where: { nombre: municipio },
-    });
-
-    if (municipioEncontrado == null) {
-      throw new errors.credentialsError(
-        "Municipio invalido. Elegir uno de los municipios en la lista."
-      );
-    }
-
-    const comprobarDni = await Persona.findOne({ where: { dni: dni } });
-    const comprobarCorreo = await Persona.findOne({ where: { email: email } });
-
-    if (comprobarDni?.verificado) {
-      throw new errors.credentialsError("Dni ya registrado.");
-    }
-    if (comprobarCorreo?.verificado) {
-      throw new errors.credentialsError("Email ya registrado.");
-    }
-
-    return { comprobarDni, comprobarCorreo, municipioEncontrado };
-  };
-
   try {
-    const comprobacionesReady = await comprobaciones(
-      valores.dni,
-      valores.email,
-      valores.municipio
+    const checkeadoEntradas = await checkearEntradas(
+      data.dni,
+      data.email,
+      data.municipio,
+      errors,
+      Municipio,
+      Persona
     );
-    let personaCreada;
 
-    if (
-      comprobacionesReady.comprobarDni ||
-      comprobacionesReady.comprobarCorreo
-    ) {
+    if (checkeadoEntradas.personaConDni || checkeadoEntradas.personaConCorreo) {
       personaCreada =
-        comprobacionesReady.comprobarDni || comprobacionesReady.comprobarCorreo;
+        checkeadoEntradas.comprobarDni || checkeadoEntradas.comprobarCorreo;
       const findToken = await Token_verificacion.findOne({
         where: {
           email: personaCreada.email,
@@ -91,26 +75,16 @@ const register = async (req, res) => {
         await findToken.destroy();
       }
 
-      personaCreada.dni = valores.dni;
-      (personaCreada.nombre = valores.nombre),
-        (personaCreada.apellido = valores.apellido),
-        (personaCreada.email = valores.email),
-        (personaCreada.nacimiento = valores.nacimiento),
-        (personaCreada.telefono = valores.telefono),
-        (personaCreada.domicilio = valores.domicilio),
-        (personaCreada.municipioId =
-          comprobacionesReady.municipioEncontrado.id);
+      const personaCreada = {
+        ...data,
+        municipioId: checkeadoEntradas.municipioEncontrado.id,
+      };
+
       await personaCreada.save();
     } else {
       personaCreada = await Persona.create({
-        dni: valores.dni,
-        nombre: valores.nombre,
-        apellido: valores.apellido,
-        email: valores.email,
-        nacimiento: valores.nacimiento,
-        telefono: valores.telefono,
-        domicilio: valores.domicilio,
-        municipioId: comprobacionesReady.municipioEncontrado.id,
+        ...data,
+        municipioId: checkeadoEntradas.municipioEncontrado.id,
       });
     }
 
